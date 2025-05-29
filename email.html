@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Send Email</title>
+  </head>
+  <body>
+    <h2>Send Test Email</h2>
+    <button onclick="sendMail()">Send Email</button>
+    <script>
+      function sendMail() {
+        fetch("https://strata-backend.onrender.com/api/send-email.php")
+          .then((res) => res.text())
+          .then((data) => alert(data));
+      }
+    </script>
+  </body>
+</html>

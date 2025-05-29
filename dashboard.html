@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h2>Dashboard</h2>
+    <p id="msg"></p>
+    <script>
+      fetch("https://strata-backend.onrender.com/api/dashboard.php", {
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("msg").textContent = data.message;
+        });
+    </script>
+  </body>
+</html>

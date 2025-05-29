@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Strata Roll</title>
+  </head>
+  <body>
+    <h2>Strata Roll</h2>
+    <ul id="unit-list"></ul>
+    <script>
+      fetch("https://strata-backend.onrender.com/api/strata-roll.php")
+        .then((res) => res.json())
+        .then((data) => {
+          const list = document.getElementById("unit-list");
+          data.forEach((unit) => {
+            const li = document.createElement("li");
+            li.textContent = `Unit ${unit.unit}: ${unit.owner}`;
+            list.appendChild(li);
+          });
+        });
+    </script>
+  </body>
+</html>
