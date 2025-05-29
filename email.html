@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Send Email</title>
+    <meta charset="UTF-8" />
+    <title>Send Confirmation Email</title>
   </head>
   <body>
-    <h2>Send Test Email</h2>
-    <button onclick="sendMail()">Send Email</button>
+    <h1>Email Notification</h1>
+    <p>Click the button to send a confirmation email.</p>
+    <button onclick="sendEmail()">Send Email</button>
+
     <script>
-      function sendMail() {
+      function sendEmail() {
         fetch("https://strata-backend.onrender.com/api/send-email.php")
           .then((res) => res.text())
-          .then((data) => alert(data));
+          .then((data) => alert("Server Response: " + data))
+          .catch((err) => alert("Error: " + err));
       }
     </script>
   </body>
