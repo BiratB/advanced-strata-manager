@@ -1,0 +1,20 @@
+<form id="maintenance-form">
+  <input type="text" name="unit" placeholder="Unit number" required />
+  <textarea name="description" placeholder="Describe issue"></textarea>
+  <button type="submit">Send</button>
+</form>
+
+<script>
+  document
+    .getElementById("maintenance-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      const data = new URLSearchParams(new FormData(this));
+      fetch("https://strata-backend.onrender.com/api/submit-request.php", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => alert("Submitted: " + data.status));
+    });
+</script>

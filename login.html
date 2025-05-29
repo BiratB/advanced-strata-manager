@@ -1,0 +1,11 @@
+<script>
+  function login() {
+    fetch("https://strata-backend.onrender.com/api/login.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ email: "admin@example.com" }),
+    })
+      .then((res) => res.json())
+      .then((data) => alert("Role: " + data.role));
+  }
+</script>
