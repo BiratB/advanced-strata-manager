@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dashboard</title>
+    <title>Strata Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      .admin {
+        background-color: #e0f7fa;
+      }
+      .resident {
+        background-color: #f1f8e9;
+      }
+    </style>
   </head>
   <body>
     <h2>Dashboard</h2>
-    <p id="msg">Loading...</p>
+    <div id="role-message" class="card">Checking role...</div>
 
     <script>
       fetch("https://strata-backend.onrender.com/api/dashboard.php", {
@@ -13,7 +32,15 @@
       })
         .then((res) => res.json())
         .then((data) => {
-          document.getElementById("msg").textContent = data.message;
+          const box = document.getElementById("role-message");
+          box.textContent = data.message;
+          if (data.message.includes("Admin")) box.classList.add("admin");
+          else if (data.message.includes("Resident"))
+            box.classList.add("resident");
+        })
+        .catch((err) => {
+          document.getElementById("role-message").textContent =
+            "Error loading dashboard.";
         });
     </script>
   </body>
