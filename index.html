@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Strata Manager</title>
+    <meta charset="UTF-8" />
+    <title>Strata Manager Frontend</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+      }
+      h1 {
+        color: #2c3e50;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 8px 0;
+      }
+      a {
+        color: #2980b9;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
     <h1>Welcome to Strata Manager Frontend</h1>
-    <p>This is the Vercel-hosted frontend.</p>
-    <a href="login.html">Login</a> | <a href="submit.html">Submit</a> |
-    <a href="roll.html">Strata Roll</a>
+    <p>
+      This is the frontend interface hosted on <strong>Vercel</strong>. It
+      interacts with backend APIs deployed on <strong>Render</strong>.
+    </p>
+
+    <h3>Pages and Features</h3>
+    <ul>
+      <li><a href="login.html">🔐 Login (Set role cookie)</a></li>
+      <li><a href="submit.html">🛠️ Submit Maintenance Request</a></li>
+      <li><a href="roll.html">🏢 View Strata Roll</a></li>
+      <li><a href="dashboard.html">📊 Dashboard (Role-based access)</a></li>
+      <li><a href="levy.html">📄 Generate Levy Notice (PDF)</a></li>
+      <li><a href="email.html">📧 Send Email Confirmation</a></li>
+    </ul>
   </body>
 </html>

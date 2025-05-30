@@ -2,6 +2,7 @@
   function login() {
     fetch("https://strata-backend.onrender.com/api/login.php", {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ email: "admin@example.com" }),
     })
