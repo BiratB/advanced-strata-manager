@@ -27,6 +27,21 @@
           class="form-control mb-2"
           required
         />
+
+        <div class="mb-2">
+          <label class="form-label">Or choose a sample user:</label>
+          <select id="email-sample" class="form-select">
+            <option value="">-- Select a sample email --</option>
+            <option value="thng0033@uni.sydney.edu.au">
+              thng0033@uni.sydney.edu.au (Admin)
+            </option>
+            <option value="alice@example.com">
+              alice@example.com (Resident)
+            </option>
+            <option value="bob@example.com">bob@example.com (Resident)</option>
+          </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
 
@@ -34,11 +49,18 @@
     </div>
 
     <script>
+      const emailInput = document.getElementById("email");
+      const sampleSelect = document.getElementById("email-sample");
+
+      sampleSelect.addEventListener("change", function () {
+        if (this.value) emailInput.value = this.value;
+      });
+
       document
         .getElementById("login-form")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-          const email = document.getElementById("email").value;
+          const email = emailInput.value;
 
           fetch("https://strata-backend.onrender.com/api/login.php", {
             method: "POST",
@@ -50,7 +72,16 @@
             .then((data) => {
               const result = document.getElementById("result");
               result.classList.remove("d-none");
-              result.textContent = `Logged in as ${data.role}`;
+              result.textContent = `✅ Logged in as ${data.role}`;
+              setTimeout(() => {
+                window.location.href = "dashboard.html";
+              }, 1000);
+            })
+            .catch(() => {
+              const result = document.getElementById("result");
+              result.classList.remove("d-none");
+              result.classList.replace("alert-info", "alert-danger");
+              result.textContent = "❌ Login failed. Please try again.";
             });
         });
     </script>
