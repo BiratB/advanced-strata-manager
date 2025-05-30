@@ -1,12 +1,20 @@
-<script>
-  function login() {
-    fetch("https://strata-backend.onrender.com/api/login.php", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ email: "admin@example.com" }),
-    })
-      .then((res) => res.json())
-      .then((data) => alert("Role: " + data.role));
-  }
-</script>
+<body>
+  <h2>Login</h2>
+  <button onclick="login('admin@example.com')">Login as Admin</button>
+  <button onclick="login('user@example.com')">Login as Resident</button>
+
+  <script>
+    function login(email) {
+      fetch("https://strata-backend.onrender.com/api/login.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ email: email }),
+      })
+        .then((res) => res.json())
+        .then((data) => alert("Logged in as: " + data.role));
+    }
+  </script>
+</body>
