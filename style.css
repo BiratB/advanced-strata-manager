@@ -1,0 +1,128 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  padding: 20px;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: #3949ab;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.navbar li {
+  font-weight: 500;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #5c6bc0;
+  transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #3f51b5;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #283593;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+header p {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+/* Sections */
+main section {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+main h2 {
+  font-size: 1.3rem;
+  color: #283593;
+  margin-bottom: 10px;
+}
+
+/* Links */
+a {
+  color: #1e88e5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="file"] {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 40px;
+  color: #666;
+}
