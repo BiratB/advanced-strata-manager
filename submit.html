@@ -1,20 +1,126 @@
-<form id="maintenance-form">
-  <input type="text" name="unit" placeholder="Unit number" required />
-  <textarea name="description" placeholder="Describe issue"></textarea>
-  <button type="submit">Send</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maintenance Request</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+    .submit-btn {
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .submit-btn:hover {
+      background-color: #1565c0;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 4px;
+      display: none;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="login.html">🔐 Login</a></li>
+      <li><a href="dashboard.html">📊 Dashboard</a></li>
+      <li><a href="submit.html">📬 Maintenance</a></li>
+      <li><a href="levy.html">📋 Levy Notice</a></li>
+      <li><a href="roll.html">📋 Strata Roll</a></li>
+      <li><a href="email.html">📧 Send Email</a></li>
+    </ul>
+  </nav>
 
-<script>
-  document
-    .getElementById("maintenance-form")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      const data = new URLSearchParams(new FormData(this));
-      fetch("https://strata-backend.onrender.com/api/submit-request.php", {
-        method: "POST",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => alert("Submitted: " + data.status));
-    });
-</script>
+  <header>
+    <h1>📬 Maintenance Request</h1>
+    <p>Submit maintenance issues for your unit</p>
+  </header>
+
+  <div class="form-container">
+    <h2>Submit Maintenance Request</h2>
+    <form id="maintenance-form">
+      <div class="form-group">
+        <label for="unit">Unit Number:</label>
+        <input type="text" id="unit" name="unit" placeholder="e.g., 101, 202" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Issue Description:</label>
+        <textarea id="description" name="description" placeholder="Please describe the maintenance issue in detail..." required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Submit Request</button>
+    </form>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    document
+      .getElementById("maintenance-form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        const unit = document.getElementById("unit").value;
+        const description = document.getElementById("description").value;
+        const resultDiv = document.getElementById("result");
+        
+        // Show loading state
+        resultDiv.style.display = "block";
+        resultDiv.className = "result";
+        resultDiv.textContent = "Submitting request...";
+        
+        window.strataAPI.submitMaintenanceRequest(unit, description)
+          .then((data) => {
+            resultDiv.className = "result success";
+            resultDiv.textContent = `✅ ${data.message} Request ID: ${data.id}`;
+            document.getElementById("maintenance-form").reset();
+          })
+          .catch((error) => {
+            resultDiv.className = "result error";
+            resultDiv.textContent = `❌ Error: ${error.message}`;
+          });
+      });
+  </script>
+</body>
+</html>

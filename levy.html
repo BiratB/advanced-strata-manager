@@ -3,9 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <title>Generate Levy Notice</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .levy-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+      .generate-btn {
+        background-color: #1e88e5;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+        margin: 20px 0;
+      }
+      .generate-btn:hover {
+        background-color: #1565c0;
+      }
+      .info-box {
+        background-color: #e3f2fd;
+        border: 1px solid #bbdefb;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: left;
+      }
+    </style>
   </head>
   <body>
-    <h1>Levy Notice</h1>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="login.html">🔐 Login</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="submit.html">📬 Maintenance</a></li>
+        <li><a href="levy.html">📋 Levy Notice</a></li>
+        <li><a href="roll.html">📋 Strata Roll</a></li>
+        <li><a href="email.html">📧 Send Email</a></li>
+      </ul>
+    </nav>
     <p>Click the button below to generate and view a levy notice as PDF.</p>
     <a
       href="https://strata-backend.onrender.com/api/generate-levy.php"
@@ -15,3 +61,28 @@
     </a>
   </body>
 </html>
+
+    <div class="levy-container">
+      <h2>Generate Levy Notice</h2>
+    <header>
+      
+      <div class="info-box">
+        <h3>📄 What's included in the levy notice:</h3>
+        <ul>
+          <li>Quarterly levy amounts for each unit</li>
+          <li>Payment due dates and methods</li>
+          <li>Contact information for inquiries</li>
+          <li>Breakdown of common area expenses</li>
+        </ul>
+      </div>
+      
+      <button class="generate-btn" onclick="generateLevy()">Generate Levy PDF</button>
+      
+      <p><small>Note: In a production environment, this would generate an actual PDF document with official levy information.</small></p>
+    </div>
+    <script>
+      function generateLevy() {
+        // Simulate PDF generation
+        alert("📄 Levy notice PDF would be generated here!\n\nIn a real system, this would:\n• Generate an official PDF document\n• Include all unit levy amounts\n• Provide payment instructions\n• Be downloadable or emailed to residents");
+      }
+    </script>

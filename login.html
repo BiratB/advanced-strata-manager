@@ -61,29 +61,24 @@
         .addEventListener("submit", function (e) {
           e.preventDefault();
           const email = emailInput.value;
+          const result = document.getElementById("result");
+          result.classList.remove("d-none", "alert-danger");
+          result.classList.add("alert-info");
+          result.textContent = "Logging in...";
 
-          fetch("https://strata-backend.onrender.com/login.php", {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ email }),
-          })
-            .then((res) => res.json())
+          window.strataAPI.login(email)
             .then((data) => {
-              const result = document.getElementById("result");
-              result.classList.remove("d-none");
-              result.textContent = `✅ Logged in as ${data.role}`;
+              result.textContent = `✅ Logged in as ${data.role} (${data.email})`;
               setTimeout(() => {
                 window.location.href = "dashboard.html";
               }, 1000);
             })
-            .catch(() => {
-              const result = document.getElementById("result");
-              result.classList.remove("d-none");
+            .catch((error) => {
               result.classList.replace("alert-info", "alert-danger");
-              result.textContent = "❌ Login failed. Please try again.";
+              result.textContent = `❌ ${error.message}`;
             });
         });
     </script>
+    <script src="js/api.js"></script>
   </body>
 </html>

@@ -3,18 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <title>Send Confirmation Email</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+      .send-btn {
+        background-color: #1e88e5;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 20px 0;
+      }
+      .send-btn:hover {
+        background-color: #1565c0;
+      }
+      .send-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .result {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 4px;
+        display: none;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+    </style>
   </head>
   <body>
-    <h1>Email Notification</h1>
-    <p>Click the button to send a confirmation email.</p>
-    <button onclick="sendEmail()">Send Email</button>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="login.html">🔐 Login</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="submit.html">📬 Maintenance</a></li>
+        <li><a href="levy.html">📋 Levy Notice</a></li>
+        <li><a href="roll.html">📋 Strata Roll</a></li>
+        <li><a href="email.html">📧 Send Email</a></li>
+      </ul>
+    </nav>
 
+    <header>
+      <h1>📧 Email Notifications</h1>
+      <p>Send confirmation emails to residents</p>
+    </header>
+
+    <div class="email-container">
+      <h2>Send Confirmation Email</h2>
+      <p>Click the button to send a confirmation email.</p>
+      <button id="send-btn" class="send-btn" onclick="sendEmail()">Send Email</button>
+      <div id="result" class="result"></div>
+    </div>
+
+    <script src="js/api.js"></script>
     <script>
       function sendEmail() {
-        fetch("https://strata-backend.onrender.com/api/send-email.php")
-          .then((res) => res.text())
-          .then((data) => alert("Server Response: " + data))
-          .catch((err) => alert("Error: " + err));
+        const btn = document.getElementById("send-btn");
+        const resultDiv = document.getElementById("result");
+        
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+        resultDiv.style.display = "block";
+        resultDiv.className = "result";
+        resultDiv.textContent = "Sending email...";
+        
+        window.strataAPI.sendEmail()
+          .then((data) => {
+            resultDiv.className = "result success";
+            resultDiv.textContent = `✅ ${data}`;
+            btn.textContent = "Send Another Email";
+          })
+          .catch((error) => {
+            resultDiv.className = "result error";
+            resultDiv.textContent = `❌ Error: ${error.message}`;
+            btn.textContent = "Try Again";
+          })
+          .finally(() => {
+            btn.disabled = false;
+          });
       }
     </script>
   </body>

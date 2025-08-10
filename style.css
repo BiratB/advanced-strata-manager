@@ -92,6 +92,21 @@ a:hover {
   text-decoration: underline;
 }
 
+.btn-link {
+  display: inline-block;
+  background-color: #1e88e5;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: #1565c0;
+  text-decoration: none !important;
+}
+
 /* Form */
 form {
   display: flex;
