@@ -1,84 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Login - Strata Manager</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-light p-4">
-    <div class="container">
-      <h2 class="mb-3">Login to Strata Manager</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SP95162 Strata CRM</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+      <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+    </ul>
+  </nav>
 
-      <p class="text-muted">
-        Strata management involves overseeing residential buildings, including
-        maintenance, communication, and finance. Please log in as an
-        <strong>admin</strong> or <strong>resident</strong> to access the
-        system’s features.
+  <!-- Login Form -->
+  <div class="form-container">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <div class="hero-icon" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;">
+        <i class="fas fa-building"></i>
+      </div>
+      <h1>Welcome to SP95162</h1>
+      <p style="color: var(--text-secondary); margin-bottom: 30px;">
+        Advanced Strata Management System - Please sign in to continue
       </p>
-
-      <form id="login-form" class="mb-4">
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          class="form-control mb-2"
-          required
-        />
-
-        <div class="mb-2">
-          <label class="form-label">Or choose a sample user:</label>
-          <select id="email-sample" class="form-select">
-            <option value="">-- Select a sample email --</option>
-            <option value="thng0033@uni.sydney.edu.au">
-              thng0033@uni.sydney.edu.au (Admin)
-            </option>
-            <option value="alice@example.com">
-              alice@example.com (Resident)
-            </option>
-            <option value="bob@example.com">bob@example.com (Resident)</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Login</button>
-      </form>
-
-      <div id="result" class="alert alert-info d-none"></div>
     </div>
 
-    <script>
-      const emailInput = document.getElementById("email");
-      const sampleSelect = document.getElementById("email-sample");
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">
+          <i class="fas fa-envelope"></i> Email Address
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="Enter your email address" 
+          required
+          autocomplete="email"
+        />
+      </div>
 
-      sampleSelect.addEventListener("change", function () {
-        if (this.value) emailInput.value = this.value;
-      });
+      <div class="form-group">
+        <label>
+          <i class="fas fa-users"></i> Quick Login (Demo)
+        </label>
+        <select id="email-sample" onchange="selectUser(this.value)">
+          <option value="">-- Select a demo account --</option>
+          <option value="thng0033@uni.sydney.edu.au">🔧 System Administrator</option>
+          <option value="alice@example.com">🏠 Alice Johnson (Unit 101)</option>
+          <option value="bob@example.com">🏠 Bob Smith (Unit 102)</option>
+        </select>
+      </div>
 
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const email = emailInput.value;
-          const result = document.getElementById("result");
-          result.classList.remove("d-none", "alert-danger");
-          result.classList.add("alert-info");
-          result.textContent = "Logging in...";
+      <button type="submit" class="btn-primary" id="login-btn">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Sign In</span>
+      </button>
+    </form>
 
-          window.strataAPI.login(email)
-            .then((data) => {
-              result.textContent = `✅ Logged in as ${data.role} (${data.email})`;
-              setTimeout(() => {
-                window.location.href = "dashboard.html";
-              }, 1000);
-            })
-            .catch((error) => {
-              result.classList.replace("alert-info", "alert-danger");
-              result.textContent = `❌ ${error.message}`;
-            });
-        });
-    </script>
-    <script src="js/api.js"></script>
-  </body>
+    <div id="login-result" style="margin-top: 20px; display: none;"></div>
+
+    <!-- Demo Info -->
+    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+      <h4><i class="fas fa-info-circle"></i> Demo Information</h4>
+      <p style="margin: 10px 0; color: var(--text-secondary); font-size: 0.9rem;">
+        This is a demonstration of the SP95162 Strata Management System. Use the dropdown above to quickly select a demo account, or enter any of the email addresses manually.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+        <div class="demo-account">
+          <strong>Administrator</strong><br>
+          <small>Full system access</small>
+        </div>
+        <div class="demo-account">
+          <strong>Residents</strong><br>
+          <small>Unit-specific access</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    function selectUser(email) {
+      if (email) {
+        document.getElementById('email').value = email;
+      }
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const loginBtn = document.getElementById('login-btn');
+      const result = document.getElementById('login-result');
+      
+      // Update button state
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Signing In...</span>';
+      
+      // Show loading result
+      result.style.display = 'block';
+      result.className = 'loading-result';
+      result.innerHTML = `
+        <div style="text-align: center; padding: 20px; background: #e3f2fd; border-radius: 8px; color: var(--primary-color);">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p style="margin: 10px 0 0 0;">Authenticating user...</p>
+        </div>
+      `;
+
+      try {
+        const data = await window.strataAPI.login(email);
+        
+        // Success
+        result.className = 'success-result';
+        result.innerHTML = `
+          <div style="text-align: center; padding: 20px; background: #d4edda; border-radius: 8px; color: var(--success-color); border: 1px solid #c3e6cb;">
+            <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+            <h3 style="margin: 0 0 10px 0;">Welcome, ${data.user.name}!</h3>
+            <p style="margin: 0;">Role: ${data.user.role.charAt(0).toUpperCase() + data.user.role.slice(1)}</p>
+            ${data.user.unit ? `<p style="margin: 5px 0 0 0;">Unit: ${data.user.unit}</p>` : ''}
+            <p style="margin: 15px 0 0 0; font-size: 0.9rem;">Redirecting to dashboard...</p>
+          </div>
+        `;
+        
+        // Redirect after delay
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 2000);
+        
+      } catch (error) {
+        // Error
+        result.className = 'error-result';
+        result.innerHTML = `
+          <div style="text-align: center; padding: 20px; background: #f8d7da; border-radius: 8px; color: var(--error-color); border: 1px solid #f5c6cb;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+            <h3 style="margin: 0 0 10px 0;">Login Failed</h3>
+            <p style="margin: 0;">${error.message}</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.9rem;">Please try one of the demo accounts above.</p>
+          </div>
+        `;
+        
+        // Reset button
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>Sign In</span>';
+      }
+    });
+
+    // Check if user is already logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = window.strataAPI.getCurrentUser();
+      if (user) {
+        window.location.href = 'dashboard.html';
+      }
+    });
+  </script>
+
+  <style>
+    .demo-account {
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 40px;
+      appearance: none;
+    }
+
+    #login-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .loading-result,
+    .success-result,
+    .error-result {
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</body>
 </html>
