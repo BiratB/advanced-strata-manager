@@ -153,7 +153,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       const user = window.strataAPI.getCurrentUser();
       if (user) {
-        window.location.href = 'dashboard.html';
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 100);
       }
     });
   </script>

@@ -108,17 +108,31 @@
         // Show loading state
         resultDiv.style.display = "block";
         resultDiv.className = "result";
-        resultDiv.textContent = "Submitting request...";
+        resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting request...';
         
         window.strataAPI.submitMaintenanceRequest(unit, description)
           .then((data) => {
             resultDiv.className = "result success";
-            resultDiv.textContent = `✅ ${data.message} Request ID: ${data.id}`;
+            resultDiv.innerHTML = `
+              <div style="text-align: center;">
+                <i class="fas fa-check-circle" style="font-size: 2rem; color: #28a745; margin-bottom: 10px;"></i>
+                <h3>Request Submitted Successfully!</h3>
+                <p><strong>Request ID:</strong> ${data.id}</p>
+                <p><strong>Estimated Response:</strong> ${data.estimatedResponse}</p>
+                <p>We'll contact you soon regarding your ${data.message.toLowerCase()}.</p>
+              </div>
+            `;
             document.getElementById("maintenance-form").reset();
           })
           .catch((error) => {
             resultDiv.className = "result error";
-            resultDiv.textContent = `❌ Error: ${error.message}`;
+            resultDiv.innerHTML = `
+              <div style="text-align: center; color: #dc3545;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3>Submission Failed</h3>
+                <p>${error.message}</p>
+              </div>
+            `;
           });
       });
   </script>

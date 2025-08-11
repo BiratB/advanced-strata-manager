@@ -78,11 +78,52 @@
       
       <button class="generate-btn" onclick="generateLevy()">Generate Levy PDF</button>
       
-      <p><small>Note: In a production environment, this would generate an actual PDF document with official levy information.</small></p>
+      <div id="levy-result" style="margin-top: 20px; display: none;"></div>
     </div>
+    
     <script>
-      function generateLevy() {
-        // Simulate PDF generation
-        alert("📄 Levy notice PDF would be generated here!\n\nIn a real system, this would:\n• Generate an official PDF document\n• Include all unit levy amounts\n• Provide payment instructions\n• Be downloadable or emailed to residents");
+      async function generateLevy() {
+        const resultDiv = document.getElementById('levy-result');
+        const btn = document.querySelector('.generate-btn');
+        
+        btn.disabled = true;
+        btn.textContent = 'Generating...';
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating levy notice...';
+        
+        try {
+          const data = await window.strataAPI.generateLevy();
+          resultDiv.innerHTML = `
+            <div style="background: #d4edda; padding: 20px; border-radius: 8px; border: 1px solid #c3e6cb;">
+              <div style="text-align: center; margin-bottom: 15px;">
+                <i class="fas fa-file-pdf" style="font-size: 3rem; color: #dc3545;"></i>
+                <h3 style="color: #155724; margin: 10px 0;">Levy Notice Generated!</h3>
+              </div>
+              <div style="text-align: left; color: #155724;">
+                <p><strong>Quarter:</strong> ${data.quarter}</p>
+                <p><strong>Total Amount:</strong> $${data.totalAmount.toLocaleString()}</p>
+                <p><strong>Units Covered:</strong> ${data.units.length}</p>
+                <p><strong>Due Date:</strong> ${data.units[0].dueDate}</p>
+              </div>
+              <div style="text-align: center; margin-top: 15px;">
+                <button onclick="downloadPDF()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                  <i class="fas fa-download"></i> Download PDF
+                </button>
+              </div>
+            </div>
+          `;
+        } catch (error) {
+          resultDiv.innerHTML = `
+            <div style="background: #f8d7da; padding: 20px; border-radius: 8px; border: 1px solid #f5c6cb; color: #721c24;">
+              <i class="fas fa-exclamation-triangle"></i> Error generating levy notice: ${error.message}
+            </div>
+          `;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Generate Levy PDF';
+        }
       }
-    </script>
+      
+      function downloadPDF() {
+        alert('📄 PDF download would start here!\n\nIn a production system, this would download the actual levy notice PDF file.');
+      }

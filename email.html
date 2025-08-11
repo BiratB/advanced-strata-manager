@@ -85,12 +85,25 @@
         window.strataAPI.sendEmail()
           .then((data) => {
             resultDiv.className = "result success";
-            resultDiv.textContent = `✅ ${data}`;
+            resultDiv.innerHTML = `
+              <div style="text-align: center;">
+                <i class="fas fa-check-circle" style="font-size: 2rem; color: #28a745; margin-bottom: 10px;"></i>
+                <h3>Email Sent Successfully!</h3>
+                <p>${data.message}</p>
+                <p><small>Delivery time: ${data.deliveryTime}</small></p>
+              </div>
+            `;
             btn.textContent = "Send Another Email";
           })
           .catch((error) => {
             resultDiv.className = "result error";
-            resultDiv.textContent = `❌ Error: ${error.message}`;
+            resultDiv.innerHTML = `
+              <div style="text-align: center; color: #dc3545;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3>Email Failed</h3>
+                <p>${error.message}</p>
+              </div>
+            `;
             btn.textContent = "Try Again";
           })
           .finally(() => {

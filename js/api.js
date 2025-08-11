@@ -32,7 +32,8 @@ class StrataAPI {
       { unit: '202', owner: 'Emma Brown', type: '2BR', levy: 850, status: 'current' },
       { unit: '203', owner: 'Frank Miller', type: '1BR', levy: 650, status: 'pending' },
       { unit: '301', owner: 'Grace Lee', type: '2BR', levy: 850, status: 'current' },
-      { unit: '302', owner: 'Henry Chen', type: '1BR', levy: 650, status: 'current' }
+      { unit: '302', owner: 'Henry Chen', type: '1BR', levy: 650, status: 'current' },
+      { unit: '303', owner: 'Sarah Wilson', type: '2BR', levy: 850, status: 'current' }
     ];
     
     this.maintenanceRequests = [

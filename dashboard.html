@@ -24,7 +24,7 @@
   <!-- Dashboard Header -->
   <div class="dashboard-header" id="dashboard-header">
     <div class="user-welcome" id="user-welcome">
-      <div class="loading-spinner">
+      <div class="loading-spinner" style="color: white;">
         <i class="fas fa-spinner fa-spin"></i> Loading dashboard...
       </div>
     </div>
@@ -115,6 +115,19 @@
   <script>
     // Load dashboard data
     async function loadDashboard() {
+      // Check if user is logged in first
+      const currentUser = window.strataAPI.getCurrentUser();
+      if (!currentUser) {
+        document.getElementById('user-welcome').innerHTML = `
+          <div style="text-align: center; color: white;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Please log in to access the dashboard</h2>
+            <button class="btn-primary" onclick="location.href='login.html'" style="margin-top: 20px;">Go to Login</button>
+          </div>
+        `;
+        return;
+      }
+
       try {
         const data = await window.strataAPI.getDashboard();
         
