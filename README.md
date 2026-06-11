@@ -1,4 +1,4 @@
-# SP95162 Committee Dashboard: Secure Login Flow
+# Committee Dashboard: Secure Login Flow
 
 This module controls access to the SP95162 backend using session-based PHP authentication. It includes the following pages:
 
